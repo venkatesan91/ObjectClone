@@ -1,0 +1,54 @@
+<apex:page standardStylesheets="false" sidebar="false">
+<head> 
+    <title>App info</title>
+
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.bootstrap, 'bootstrap/js/bootstrap.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.bootstrap, 'bootstrap/js/bootstrap.min.js')}"/>
+    
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrap, 'bootstrap/css/bootstrap.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.bootstrap, 'bootstrap/css/bootstrap.min.css')}"/>
+    
+    <style type="text/css"><!-- Spacing for the Nav bar -->
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+
+    <script type="text/javascript">
+        var $j = jQuery.noConflict();
+    </script> 
+</head> 
+<div class="container">
+    <apex:pageBlock >
+        <h4>Object Clone</h4><br/>
+        <h5>Fastest way to clone an object in salesforce</h5>
+        <apex:pageBlockSection title="Overview">
+            <div class="alert alert-info" style="margin:0 auto;width:100%">
+                Object Clone for salesforce is the easiest way to clone an object.
+            </div>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Details">
+        
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Limitations">
+        
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Provider">
+        
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</div>
+<!--      
+    <apex:pageBlock >
+        <apex:pageMessages />
+        <apex:pageBlockSection title="Overview">
+            Object Clone for Salesforce is the fastest way to clone an object. <br/><br/>
+            Just select the object which needs to be cloned, give a name for the new object. This is first of its kind app where objects can be cloned in a single button click. 
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+--> 
+</apex:page>

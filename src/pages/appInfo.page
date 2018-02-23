@@ -1,0 +1,10 @@
+<apex:page >
+  <apex:pageBlock >
+  <!-- https://appexchange.salesforce.com/listingDetail?listingId=a0N30000009xEnMEAU -->
+  <!-- copy styles from that to here -->
+      <apex:pageBlockSection title="Overview">
+          App by Lister Technologies Pvt Ltd <br/><br/>
+          Object Clone automatically clones objects selected and the fields of the object.It is a single page app where the user just needs to select the objects that needs to be cloned, the rest is done automatically.        
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

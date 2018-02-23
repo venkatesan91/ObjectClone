@@ -1,0 +1,174 @@
+<apex:page controller="cloneObjectController_clone" title="Object Clone" id="pageid"  cache="false">
+
+<style>
+#dynamicSuggestion{
+background: none repeat scroll 0% 0% #FFF;
+border: 2px solid #CFCFCF;
+width: 170px;
+overflow-y: scroll;
+height: auto;
+max-height: 200px;
+display:none;
+cursor: pointer;
+}
+
+.hoverValue:hover{
+background-color: #008AFF;
+color: white;
+}
+
+</style>
+
+<script type="text/javascript">
+var dropDownValues = new Array();
+var objName = '{!$Component.cloneForm:clonePageBlock:cloneFormPageBlock:ObjectNameInput:objName}';
+var cloneObjName = '{!$Component.cloneForm:clonePageBlock:cloneFormPageBlock:cloneObjectId:cloneObjName2}';
+var dropdownlist = '';
+window.onload = function(){
+
+  getCloneName(objName,cloneObjName );
+ 
+ var object = document.getElementById(objName);
+ for(var i=0;i<object.options.length; i++){
+     var newName = newCloneObjName(object.options[i].text);
+    // console.log('Test-->'+object.options[i].text);
+    if(dropDownValues.indexOf(newName) == -1 )
+    {   
+        dropDownValues.push(newName); 
+    }
+    
+ }
+ 
+ console.log(dropDownValues);
+  
+}
+   
+function dynamicSuggestName(){
+document.getElementById("dynamicSuggestion").innerHTML = ' ';
+var valueEntered = document.getElementById(cloneObjName).value;
+
+   if(valueEntered==''){
+     document.getElementById("dynamicSuggestion").style.display='none';
+   }else{
+   document.getElementById("dynamicSuggestion").style.display='block';
+   }
+
+  
+   var object = document.getElementById(objName);
+
+   
+  if(dropDownValues && valueEntered!=''){
+     
+      for(var i=0;i<dropDownValues.length; i++){
+        if(dropDownValues[i].toLowerCase().indexOf(valueEntered.toLowerCase())==0){
+        console.log('<div>'+dropDownValues[i]+'</div>');
+        document.getElementById("dynamicSuggestion").innerHTML  += '<div class="hoverValue" onClick="enterSelectedValue(\''+dropDownValues[i]+'\')">'+dropDownValues[i]+'</div>';
+        
+        }
+    }
+     
+  }
+
+}
+
+function enterSelectedValue(selectedValue){
+console.log('Selected : '+selectedValue);
+document.getElementById(cloneObjName).value = selectedValue;
+document.getElementById("dynamicSuggestion").style.display='none';
+}
+
+function getCloneName(){
+    console.log(document.getElementById(objName));
+    var obj = document.getElementById(objName);
+    var objlength =obj.length;
+    obj = newCloneObjName(obj.options[obj.selectedIndex].text);
+    document.getElementById(cloneObjName).value = obj;
+    document.getElementById("dynamicSuggestion").style.display='none';
+    
+}
+
+function newCloneObjName(objectName){
+  
+    var re = /([_][\d]*$)/gmi; 
+    var re1 = /([\d]*$)/gmi
+    var str = objectName;
+    var m;
+   
+    if(str.match(re))
+    {
+        var temp = str.match(re);
+        var temp1 = str.match(re1);
+        //alert(temp1);
+        str = str.replace(re,'_');
+        temp1[0]++;
+        
+        objectName=str+temp1;
+        objectName= objectName.replace(/[,]$/gmi , '');
+        
+        var object = document.getElementById(objName);
+        for(var i=0; i<object.options.length;i++){
+       //    alert(object.options.length[i]);
+             if(object.options[i].text==objectName){
+             var temp = objectName.match(re);
+             var temp1 = objectName.match(re1);
+        //alert(temp1);
+            objectName = objectName.replace(re,'_');
+            temp1[0]++;
+            objectName=objectName+temp1;
+            objectName= objectName.replace(/[,]$/gmi , '');
+           } 
+        }
+        /*
+        if(dropDownValues.indexOf(objName ))
+        {    
+            //objName = newCloneObjName(objName)
+            temp1[0]++;
+            objectName=str+temp1;
+            objectName= objName.replace(/[,]$/gmi , '');
+         
+        } */   
+    }else{
+        objectName=str+ '_'+'1';
+      
+        
+    }
+    return objectName;     
+}
+</script>
+
+<apex:form id="cloneForm">
+
+<apex:pageBlock tabStyle="Account" id="clonePageBlock">        
+<apex:pageMessages ></apex:pageMessages>       
+    <apex:PageBlockSection id="cloneFormPageBlock" >            
+        <!-- Object Picklist -->
+        <apex:pageblockSectionItem id="ObjectNameInput" >
+            <apex:outputLabel value="Select Object" />
+            <apex:selectList size="1" multiselect="false" value="{!objectName}" onchange="getCloneName()" id="objName" >
+                <apex:selectOptions value="{!list_Objects}" id="temp" />
+            </apex:selectList>
+        </apex:pageblockSectionItem> 
+        <!-- Object Picklist -->                                
+        
+        <apex:pageblockSectionItem id="cloneObjectId">
+        
+         <apex:outputLabel value="Name for Clone Object"  />
+         <apex:outputPanel >
+            <apex:inputText value="{!cloneObjectName}" onKeyUp="dynamicSuggestName()" id="cloneObjName2" style="width:170px"  html-autocomplete="off"/>
+           <div id="dynamicSuggestion"></div>
+        </apex:outputPanel>
+            </apex:pageblockSectionItem> 
+    </apex:PageBlockSection>      
+    
+    <apex:pageBlockButtons >
+            <apex:commandButton action="{!cloneObjectMetaData}" value="Clone" />
+    </apex:pageBlockButtons>
+          
+</apex:pageBlock>  
+
+
+
+<apex:outputPanel >
+</apex:outputPanel>
+</apex:form>
+</apex:page>

@@ -1,0 +1,17 @@
+{
+    "projectName": "ObjectClone - New",
+    "username": "techsmeteam1@gmail.com",
+    "id": "0cd2bf90-093e-11e7-b81e-4d18e8ccd08e",
+    "namespace": "",
+    "orgType": "developer",
+    "loginUrl": "https://login.salesforce.com/",
+    "instanceUrl": "https://ap4.salesforce.com",
+    "workspace": "D:\\Workspace",
+    "subscription": [
+        "ApexClass",
+        "ApexComponent",
+        "ApexPage",
+        "ApexTrigger",
+        "StaticResource"
+    ]
+}
